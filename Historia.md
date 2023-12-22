@@ -23,5 +23,64 @@ La complejidad temporal se ve afectada por la capacidad de nuestra función hash
 En la practica la complejidad promedio de la búsqueda y eliminación es theta(1) lo cual es muy bueno, también se pueden aplicar estrategias en las que se re dimensiona nuestro arreglo para evitar las colisiones, pero esto tiene el costo de que la complejidad de la inserción en el peor de los casos de vuelve O(n).
 
 ## Árbol de búsqueda balanceado
-Como ya se menciono en la practica la implementación de los mapas con una lista hash tiene un buen rendimiento, sin embargo ninguna de las implementaciones previamente mencionadas puede mantener el orden si el tipo de dato de la llave tiene alguna forma de ordenarse.
+Como ya se menciono, en la practica la implementación de los mapas con una tabla hash tiene un buen rendimiento, sin embargo ninguna de las implementaciones previamente mencionadas puede mantener el orden si el tipo de dato de la llave tiene alguna forma de ordenarse.
+
+Una solución al problema de ordenamiento en los mapas es hacer una implementación usando arboles de búsqueda balanceados, dentro de estos arboles de usa la llave como criterio de búsqueda. Los arboles mas usados para este propósito son los arboles AVL y los arboles rojo-negro.
+
+### Arboles AVL
+Los arboles AVL son un tipo de árbol binario de búsqueda, la particularidad de estos es su capacidad de auto balancearse cada vez que se inserta un nuevo elemento.
+
+Dado que después de cada operación de inserción el árbol esta balanceado, esto significa que si el árbol tiene n elementos la altura del árbol sera log(n)+1, esto nos garantiza que las operaciones de consulta tienen una complejidad temporal O(log n). Para mantener el orden la complejidad temporal de la inserción y eliminación es O(log n).
+
+Debido al balance estricto que tienen los arboles AVL en la práctica el desempeño no es muy bueno cuando se requieren hacer muchas operaciones de inserción.
+
+### Arboles rojo-negro
+Un árbol rojo-negro es un árbol binario de búsqueda, al igual que los arboles AVL los arboles rojo-negro pueden auto balancearse, solo que el balance de estos es menos estricto. Esto causa que en la mayoría de las inserciones no se requiere hacer ajustes de balanceo.
+
+Una de las principales características de estos arboles es que para todos los nodos del árbol no se permite que la altura de uno de sus subarboles supere el doble de la altura del otro subarbol.
+
+En la practica las operaciones de inserción y eliminación son mas eficientes que en un árbol AVL, sin embargo las operaciones de consulta serán mas eficientes en un árbol AVL.
+
+La preferencia de un tipo de árbol sobre el otro se vera afectada por el tipo de operaciones que mas se efectúen para cada caso en particular.
+
+Si la operación predominante es consulta entonces es mas conveniente usar arboles AVL, si por el contrario la operación predominante es inserción y eliminación es preferible usar arboles rojo-negro.
+
+## Mapas en Java
+En Java la librería estándar del lenguaje cuenta con las clases HashMap y TreeMap del paquete java.util, estas son las respectivas implementaciones usando tablas hash y arboles binarios de búsqueda respectivamente.
+
+En particular la clase TreeMap esta implementada usando un árbol rojo-negro.
+
+### Complejidad
+La complejidad espacial tanto para la clase HashMap como para TreeMap es O(n), solo hay que tener en cuenta que se debe de reservar un nuevo arreglo para la tabla hash de HashMap cuando ocurre un re dimensionamiento.
+
+En cuanto a la complejidad temporal para la clase HashMap se tiene:
+- Insertar: O(n) theta(1)
+- Eliminar: O(n) theta(1)
+- Buscar: O(n) theta(1)
+
+Para TreeMap:
+- Insertar: O(log n) theta(log n)
+- Eliminar: O(log n) theta(log n)
+- Buscar: O(log n) theta(log n)
+
+## Ejemplos de uso de mapas
+
+# Conjuntos
+En ciencias de la computación un conjunto (Set) es una estructura de datos que no permite almacenar valores duplicados.
+
+Las operaciones permitidas por esta estructura de datos son:
+- Insertar o agregar: Inserta un valor al conjunto en caso de que este valor no se encuentre previamente.
+- Eliminar o borrar: Elimina un valor del conjunto.
+- Buscar o consultar: Busca si un valor determinado se encuentra dentro del conjunto.
+
+## Implementaciones
+Esta estructura de datos puede ser vista como un caso particular de los mapas donde solo nos importa la llave, por esta razón toda la teoría previamente mencionada es aplicable a los conjuntos.
+
+## Conjuntos en Java
+En Java se cuenta con las clases HashSet y TreeSet del paquete util.
+
+Debido a que estas estructuras son casos particulares de sus mapas correspondientes, en Java las implementaciones esta codificadas haciendo uso de mapas estableciendo el tipo para los valores como nulo.
+
+La clase HashSet es implementada haciendo uso de la clase HashMap, de forma similar la clase TreeSet es implementada usando la clase TreeMap.
+
 
